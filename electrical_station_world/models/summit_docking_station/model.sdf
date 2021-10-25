@@ -39,12 +39,12 @@
 
 
     <link name='link_0_0'>
-      <pose frame=''>0.07 -0.18 0.36 0 -0 0</pose>
+      <pose frame=''>0.07 -0.15 0.36 0 -0 0</pose>
       <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-             <size>0.001 0.071 0.12</size>
+             <size>0.001 0.05 0.12</size>
           </box>
         </geometry>
         <material>
@@ -64,7 +64,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.001 0.071 0.12</size>
+            <size>0.001 0.05 0.12</size>
           </box>
         </geometry>
       </collision>
@@ -72,12 +72,12 @@
 
 
     <link name='link_0_0_clone'>
-      <pose frame=''>0.07 0.18 0.36 0 -0 0</pose>
+      <pose frame=''>0.07 0.15 0.36 0 -0 0</pose>
       <visual name='visual_0'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.001 0.071 0.12</size>
+            <size>0.001 0.05 0.12</size>
           </box>
         </geometry>
         <material>
@@ -97,7 +97,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.001 0.071 0.12</size>
+            <size>0.001 0.05 0.12</size>
           </box>
         </geometry>
       </collision>
