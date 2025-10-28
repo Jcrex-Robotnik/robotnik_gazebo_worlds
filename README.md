@@ -1,143 +1,165 @@
 # robotnik_gazebo_worlds
 
-**Description:** this package contains differents worlds for Gazebo embedded in ROS packages, so you don't need set the gazebo path or do other configurations. Each world has their own ROS package 
+**Description:** This repository contains different Gazebo worlds packaged for ROS 2 (Jazzy recommended) and Gazebo Harmonic.  
+Each world is distributed as a standalone ROS 2 package, so you do **not** need to manually set `GZ_SIM_RESOURCE_PATH` or other environment variables—models are auto-discovered via env hooks.
 
-## General installation
+## Dependencies
 
-In your workspace, clone the repository
+- Gazebo Harmonic (Ignition Gazebo)
+- ROS 2 Jazzy (recommended)
+- This repository is intended to be used with [robotnik_simulation](https://github.com/RobotnikAutomation/robotnik_simulation).
 
+
+## General Installation
+
+Clone the repository into your ROS 2 workspace:
+
+```bash
+git clone https://github.com/RobotnikAutomation/robotnik_gazebo_worlds.git
 ```
-$ git clone https://github.com/RobotnikAutomation/robotnik_gazebo_worlds.git
+
+Build and source your workspace:
+
+```bash
+colcon build
+source install/setup.bash
 ```
 
-Build the workspace and source it:
+## Launch a World
 
-```
-$ catkin build
-$ source devel/setup.bash
-```
+For example, to launch the electrical substation world:
 
-Launch a world, for example ```electrical_station.world```
-
-```
-$ roslaunch electrical_station_world electrical_station_world.launch
+```bash
+ros2 launch electrical_substation_world electrical_substation_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/electrical_station.png" width="90%">
 
+## Use These Worlds With Your Robot
 
-## Use these worlds with your robot
+Clone this repository into your robot's workspace, build, and source as above.
 
-In the workspace of your robot, clone this repository
+To launch your robot in a specific world, pass the world file as a parameter (example for ROS 2):
 
-```
-$ git clone https://github.com/RobotnikAutomation/robotnik_gazebo_worlds.git
-```
-
-Build the workspace and source it
-
-```
-$ catkin build
-$ source devel/setup.bash
+```bash
+ros2 launch robotnik_gazebo_ignition spawn_world.launch.py world_path:=PATH_TO_FILE/robotnik_gazebo_worlds/electrical_substation_world/worlds/electrical_substation.world
 ```
 
-Launch your robot as always, but specify the name of the world. For example if you robot is a ```summit_xl``` working in ```melodic-devel``` branch, you must to do:
+## Create a New Gazebo World ROS 2 Package
 
-```
-$ roslaunch summit_xl_sim_bringup summit_xl_complete.launch gazebo_world:=viesgo_electrical_station.world
-```
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
 
+From the root of this repository, run the package creation script:
 
-## Create a new Gazebo world ROS package
-
-Follow the general installation and go to the package
-
-```
-$ roscd robotnik_gazebo_worlds && cd ..
+```bash
+./create_world_pkg.sh demo_factory User user@robotnik.es
 ```
 
-Execute the ```create_world_pkg.sh``` script. Add the name of the world, your name and your email. For example:
+If you omit arguments, defaults will be used.
 
-```
-$ ./create_world_pkg.sh demo_factory User user@robotnik.es
-```
-
-If the name of the robot, the user, or the email is not set, default values will use.
-
-If everything was well, a new ROS package with a basic world will create. This is the structure:
+A new ROS 2 package with a basic world will be created:
 
 ```
 ├── demo_factory_world
 │   ├── CMakeLists.txt
 │   ├── launch
-│   │   └── demo_factory_world.launch
+│   │   └── demo_factory_world.launch.py
 │   ├── models
 │   ├── package.xml
 │   └── worlds
 │       └── demo_factory.world
 ```
 
-Add your models into the ```models``` folder
+Add your models to the `models` folder.  
+Open the world in Gazebo Harmonic using:
 
-Open the world using gazebo, in this case, run:
-
+```bash
+ros2 launch demo_factory_world demo_factory_world.launch.py
 ```
-$ roslaunch demo_factory_world demo_factory_world.launch
-```
 
-When Gazebo is ready, add your models into the world. Then ```save as``` the world inside ```worlds``` folder
+When Gazebo is ready, add your models and save the world inside the `worlds` folder.
 
+## List of Worlds
 
-## List of worlds
+### Electrical Substation
 
-### Electrical station
-
-```
-$ roslaunch electrical_station_world electrical_station_world.launch
+```bash
+ros2 launch electrical_substation_world electrical_substation_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/electrical_station.png" width="60%">
 
-### OPIL factory
+### OPIL Factory
 
-**Note**: there is a wall at the origin of the world, spawn your robot on ```x=4 y=4 z=0``` to avoid the collision
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
 
-```
-$ roslaunch opil_factory_world opil_factory_world.launch
+**Note:** There is a wall at the origin. Spawn your robot at `x=4 y=4 z=0` to avoid collision.
+
+```bash
+ros2 launch opil_factory_world opil_factory_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/opil_factory.png" width="60%">
 
-### Rubber factory
+### Rubber Factory
 
-```
-$ roslaunch rubber_factory_world rubber_factory_world.launch
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
+
+```bash
+ros2 launch rubber_factory_world rubber_factory_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/rubber_factory.png" width="60%">
 
-### Warehose 
+### Warehouse
 
-World based on the repository [warehouse_simulation_toolkit](https://github.com/wh200720041/warehouse_simulation_toolkit)
-```
-$ roslaunch warehouse_world warehouse_world.launch
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
+
+
+Based on [warehouse_simulation_toolkit](https://github.com/wh200720041/warehouse_simulation_toolkit):
+
+```bash
+ros2 launch warehouse_world warehouse_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/warehouse.png" width="60%">
 
 ### Robotnik Lab
 
-```
-$ roslaunch robotnik_lab_world robotnik_lab_world.launch
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
+
+```bash
+ros2 launch robotnik_lab_world robotnik_lab_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/robotnik_lab.png" width="60%">
 
-
 ### Photovoltaic Station
 
-```
-$ roslaunch photovoltaic_station_world photovoltaic_station_world.launch 
+> **Note:** **not yet been migrated** to ROS 2 Jazzy and Gazebo Harmonic.  
+
+```bash
+ros2 launch photovoltaic_station_world photovoltaic_station_world.launch.py
 ```
 
 <img src="robotnik_gazebo_worlds/images/photovoltaic_station.png" width="60%">
+
+## Compatibility
+
+- ROS 2 Jazzy (recommended)
+- Gazebo Harmonic (Ignition Gazebo)
+- SDF 1.7 worlds and models
+- Models auto-discovered via env hook (no manual path export needed)
+
+## Troubleshooting
+
+- **Missing mesh/model:** Check your install path under `install/<world_pkg>/share/<world_pkg>/models/...`
+- **Warnings about `frame=""`:** Remove `frame=""` attributes from `<pose>` tags in SDF files.
+- **Black textures:** Use power-of-two PNG images and prefer PBR `<metal>` workflow or classic OGRE script.
+- **World not found:** Ensure you source `install/setup.bash` before launching.
+
+## License
+
+See LICENSE file in each package.
+
+---
